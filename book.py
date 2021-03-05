@@ -21,21 +21,24 @@ class Book:
     
     
     def insert_sell(self, quantity, price):
-        
-        a = -1
-        
         self.id_order += 1
-        
-        for i in range(len(self.list_order)):
-            temp = self.list_order[i]
-            if price <= temp[2] and temp[3] == "BUY":
-                a = i
-            elif temp[3] == "SELL":
-                break
-        if a < 0 :
-            self.list_order.append([self.id, quantity, price, "SELL"])
-        elif a > 0 :
-            
+        i = -1
+        while i>=-len(self.list_order) and price<self.list_order[i][2] and quantity>0:
+            if self.list_order[i][3] == "BUY":
+                counter = 0
+                while self.list_order[i][1] - counter > 0 and quantity - counter > 0:
+                    counter = counter + 1
+                if self.list_order[i][1] - counter == 0:
+                    self.list_order.pop(i)
+                    i = i + 1
+                elif self.list_order[i][1] - counter > 0:
+                    self.list_order[i][1] -= counter
+            i = i - 1
+        if i < len(self.list_order):
+            self.list_order.insert(i+1,[self.id, quantity, price, "SELL"])
+        elif quantity>0 and price>=self.list_order[i][2]:
+                self.list_order.insert(i+1,[self.id, quantity, price, "SELL"])
+        self.list_order.append([self.id, quantity, price, "SELL"])
         return quantity, price
 
 
