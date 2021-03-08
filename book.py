@@ -16,12 +16,33 @@ class Book:
         
     def insert_buy(self, quantity, price):
         self.id_order += 1
-        self.list_order.append([self.id, quantity, price, "BUY"])
-        return quantity, price
+        print("--- Insert BUY " + str(quantity) + "@" + str(price) + " id=" + str(self.id_order) + " on " + self.name + '\n')
+        i = 0
+        while i<=len(self.list_order)-1 and price>self.list_order[i][2] and quantity>0:
+            if self.list_order[i][3] == "SELL":
+                counter = 0
+                while self.list_order[i][1] - counter > 0 and quantity - counter > 0:
+                    counter = counter + 1
+                if self.list_order[i][1] - counter == 0:
+                    self.list_order.pop(i)
+                    i = i - 1
+                elif self.list_order[i][1] - counter > 0:
+                    self.list_order[i][1] -= counter
+                print("Execute " + str(counter) + " at " + str(price) + " on " + str(self.name) + '\n')
+            i = i + 1
+        if i > len(self.list_order) - 1:
+            self.list_order.insert(i+1,[self.id_order, quantity, price, "BUY"])
+        elif quantity>0 and price<=self.list_order[i][2]:
+                self.list_order.insert(i+1,[self.id_order, quantity, price, "BUY"])
+        print("Book on " + str(self.name) + '\n')
+        for j in range(0, len(self.list_order)):
+            print(str(self.list_order[i][3]) + " " + str(self.list_order[i][1]) + "@" + str(self.id_order[i][2]) + " id=" + str(self.id_order[i][0]) + '\n')
+        print("----------------------------" + '\n')
     
     
     def insert_sell(self, quantity, price):
         self.id_order += 1
+        print("--- Insert SELL " + str(quantity) + "@" + str(price) + " id=" + str(self.id_order) + " on " + str(self.name) + '\n')
         i = -1
         while i>=-len(self.list_order) and price<self.list_order[i][2] and quantity>0:
             if self.list_order[i][3] == "BUY":
@@ -33,14 +54,16 @@ class Book:
                     i = i + 1
                 elif self.list_order[i][1] - counter > 0:
                     self.list_order[i][1] -= counter
+                print("Execute " + str(counter) + " at " + str(price) + " on " + str(self.name) + '\n')
             i = i - 1
-        if i < len(self.list_order):
-            self.list_order.insert(i+1,[self.id, quantity, price, "SELL"])
+        if i < -len(self.list_order):
+            self.list_order.insert(i+1,[self.id_order, quantity, price, "SELL"])
         elif quantity>0 and price>=self.list_order[i][2]:
-                self.list_order.insert(i+1,[self.id, quantity, price, "SELL"])
-        self.list_order.append([self.id, quantity, price, "SELL"])
-        return quantity, price
-
+                self.list_order.insert(i+1,[self.id_order, quantity, price, "SELL"])
+        print("Book on " + str(self.name) + '\n')
+        for j in range(0, len(self.list_order)):
+            print(str(self.list_order[i][3]) + " " + str(self.list_order[i][1]) + "@" + str(self.id_order[i][2]) + " id=" + str(self.id_order[i][0]) + '\n')
+        print("----------------------------" + '\n')
 
 def main():
     book = Book("TEST")
