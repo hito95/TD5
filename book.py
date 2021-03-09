@@ -35,8 +35,8 @@ class Book:
         elif quantity>0 and price<=self.list_order[i][2]:
                 self.list_order.insert(i+1,[self.id_order, quantity, price, "BUY"])
         print("Book on " + str(self.name) + '\n')
-        for j in range(0, len(self.list_order)):
-            print(str(self.list_order[i][3]) + " " + str(self.list_order[i][1]) + "@" + str(self.id_order[i][2]) + " id=" + str(self.id_order[i][0]) + '\n')
+        for obj in self.list_order:
+            print(obj[3],obj[1],"@",obj[2], " id=",obj[0])
         print("----------------------------" + '\n')
     
     
@@ -61,8 +61,8 @@ class Book:
         elif quantity>0 and price>=self.list_order[i][2]:
                 self.list_order.insert(i+1,[self.id_order, quantity, price, "SELL"])
         print("Book on " + str(self.name) + '\n')
-        for j in range(0, len(self.list_order)):
-            print(str(self.list_order[i][3]) + " " + str(self.list_order[i][1]) + "@" + str(self.id_order[i][2]) + " id=" + str(self.id_order[i][0]) + '\n')
+        for obj in self.list_order:
+            print(obj[3],obj[1],"@",obj[2], " id=",obj[0])
         print("----------------------------" + '\n')
 
 def main():
