@@ -84,16 +84,3 @@ class Book:
         for obj in self.list_order:
             print("       ",obj[3],obj[1],"@",obj[2],"id=",obj[0])
         print("----------------------------")
-
-def main():
-    book = Book("TEST")
-    book.insert_buy(10, 10.0)
-    book.insert_sell(120, 12.0)
-    book.insert_buy(5, 10.0)
-    book.insert_buy(2, 11.0)
-    book.insert_sell(1, 10.0)
-    book.insert_sell(10, 10.0)
-    return book
-    
-if __name__ == "__main__":
-    book = main() 
