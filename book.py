@@ -5,7 +5,7 @@ Created on Thu Mar  4 19:10:48 2021
 
 @author: marwanmenaa
 """
-
+import pandas as pd
 
 class Book:
     
@@ -13,6 +13,7 @@ class Book:
         self.name = name
         self.id_order = 0
         self.list_order = []
+        self.df = pd.DataFrame(self.list_order,columns=['id', 'Quantity', 'Price','Type'])
         
     def insert_buy(self, quantity, price):
         self.id_order += 1
@@ -47,12 +48,23 @@ class Book:
                     self.list_order.insert(i+1,[self.id_order, quantity, price, "BUY"])
                 else:
                     self.list_order.insert(len(self.list_order),[self.id_order, quantity, price, "BUY"])
+        
         print("Book on " + str(self.name))
         for obj in self.list_order:
             print("       ",obj[3],obj[1],"@",obj[2], "id=",obj[0])
         print("----------------------------")
-    
-    
+        print('\n')
+        
+        return self.list_order
+        # print("—— Pandas visualization ——")
+        # for i in range(len(self.list_order)):
+        #     self.df.at[i,'id'] = self.list_order[i][0]
+        #     self.df.at[i,'Quantity'] = self.list_order[i][1]
+        #     self.df.at[i,'Price'] = self.list_order[i][2]
+        #     self.df.at[i,'Type'] = self.list_order[i][3]
+        # print(self.df)
+        # print('\n')
+        
     def insert_sell(self, quantity, price):
         self.id_order += 1
         print("--- Insert SELL " + str(quantity) + "@" + str(price) + " id=" + str(self.id_order) + " on " + str(self.name))
@@ -80,7 +92,33 @@ class Book:
                 self.list_order.insert(i,[self.id_order, quantity, price, "SELL"])
             else:
                 self.list_order.insert(i,[self.id_order, quantity, price, "SELL"])
+       
         print("Book on " + str(self.name))
         for obj in self.list_order:
             print("       ",obj[3],obj[1],"@",obj[2],"id=",obj[0])
         print("----------------------------")
+        
+        return self.list_order
+        # print('\n')
+        # print("—— Pandas visualization ——")
+        # for i in range(len(self.list_order)):
+        #     self.df.at[i,'id'] = self.list_order[i][0]
+        #     self.df.at[i,'Quantity'] = self.list_order[i][1]
+        #     self.df.at[i,'Price'] = self.list_order[i][2]
+        #     self.df.at[i,'Type'] = self.list_order[i][3]
+        # print(self.df)
+        # print('\n')
+        
+def main():
+  book = Book("TEST")
+  book.insert_buy(10, 10.0)
+  book.insert_sell(120, 12.0)
+  book.insert_buy(5, 10.0)
+  book.insert_buy(2, 11.0)
+  book.insert_sell(1, 10.0)
+  book.insert_sell(10, 10.0)
+
+if __name__ == "__main__":
+  main()
+        
+    
